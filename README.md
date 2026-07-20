@@ -57,13 +57,13 @@ done
 ```
 4. Extrace methylation information:
 ```bash
-cd /your/deduplicated/bam/folder
+cd /your/bam/file/folder
 for f in *_namesorted.deduplicated.bam; do
     rn="${f%_namesorted.deduplicated.bam}"
     if [ ! -e extraction ]; do
         mkdir extraction
     fi
-    mkdir /extraction/$raw_name
+    mkdir /extraction/$rn
     bismark_methylation_extractor -p --gzip --bedGraph -o extraction/$rn $f
 done
 ```
@@ -95,3 +95,14 @@ conda activate dataprocessing
 python split_chr.py
 conda deactivate
 ```
+6. Re-sort and index BAM files. BAM files are also required as input for MethylBERT. Therefore, the BAM files should be re-sorted and indexed before downstream analysis by running the following shell script:
+```bash
+cd /your/bam/file/folder
+for f in *_namesorted.deduplicated.bam; do
+    nf="${f%_namesorted.deduplicated.bam}_sorted.bam"
+    bn="${nf.bam}.bai"
+    samtools sort -o $nf $f
+    samtools index -o $bn $nf
+done
+```
+To reduce disk usage, FASTQ files and all intermediate BAM files **except SAMPLE_sorted.bam** can be safely removed after successful sorting and indexing.
