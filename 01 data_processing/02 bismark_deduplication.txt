@@ -1,0 +1,15 @@
+conda activate dataprocessing
+
+cd /your/bam/folder
+
+ls *_1_bismark_bt2_pe.bam > files.txt
+files="files.txt"
+file=$(sed -n "${SLURM_ARRAY_TASK_ID}p" $files)
+echo "Start task ${SLURM_ARRAY_TASK_ID}, file name: $file"
+
+rn=${file%_1_bismark_bt2_pe.bam}
+sn="${rn}_namesorted.bam"
+samtools sort -n -o $sn $file
+deduplicate_bismark -p $sn
+
+conda deactivate
