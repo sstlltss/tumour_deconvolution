@@ -1,10 +1,12 @@
 # Tumor Deconvolution Using Methylation Data
-## 0 Introduction
+### Note: This project was developed and tested on Ubuntu Linux. The shell scripts assume an Ubuntu environment, and some commands or package installation procedures may differ on other operating systems.
 
-## 1 Data Processing
+## Introduction
+
+## Data Processing
 **Scripts using in this part are stored at `01 data_processing`.**
 
-### 1.1 Data collecting
+### Data collecting
 The raw sequencing and DNA methylation data used in this study consist of four datasets adopted from MethylBERT. They are downloaded from [European Nucleotide Archive (ENA)](https://www.ebi.ac.uk/ena/browser/home) with the given accession number:
 
 - DLBCL cancer: PRJNA565006
@@ -16,7 +18,7 @@ The original sequencing data are provided in FASTQ (.fastq.gz) format.
 
 In addition, a reference genome is required for read alignment. In this study, the human reference genome **GRCh37 (hg19)** was used. The required reference genome files in FASTA (.fa.gz) format can be downloaded from [National Center of Biotechnology Information (NCBI)](https://ncbi.nlm.nih.gov/datasets/genome/GCF_000001405.22/).
 
-### 1.2 Environment
+### Environment
 For data processing, it is highly recommended to use a virtual environment to manage the required software and dependencies. This project uses Miniconda for creating virtual environments and managing package installations. The following steps describe how to set up the environment for data processing:
 
 1. Install [conda](https://www.anaconda.com/docs/getting-started/installation) and activate it as `base`.
@@ -29,7 +31,7 @@ conda install -f environment.yml
 conda activate dataprocessing
 ```
 
-### 1.3 Alignment, Deduplication and Extraction
+### Alignment, Deduplication and Extraction
 The input files required by MethylBERT include BAM files, methylation coverage files (COV files), and DMR result files (CSV files). MethyLYZR requires methylation coverage files to generate the input feature matrix. The following steps describe how to generate these required files.
 
 1. Prepare reference genome:
@@ -79,7 +81,7 @@ done
 
 Among these files, the COV file is required for downstream DMR analysis (using DSS) and can also be converted into the feature matrix required by MethyLYZR. The remaining files are not used in the subsequent steps of this pipeline and can be safely removed to save disk space.
 
-To reduce memory consumption and avoid out-of-memory (OOM) errors during DMR analysis, each COV file should split into separate files by chromosome. Chromosomes X, Y, and M are excluded from the analysis. Copy `data_processing/split_chr.py` to `extraction` folder and run the following shell:
+To reduce memory consumption and avoid out-of-memory (OOM) errors during DMR analysis, each COV file should split into separate files by chromosome. Chromosomes X, Y, and M are excluded from the analysis. Copy `split_chr.py` to `extraction` folder and run the following shell:
 ```bash
 cd extraction
 rm -f */*.txt*
