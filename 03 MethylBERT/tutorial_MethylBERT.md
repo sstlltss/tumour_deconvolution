@@ -71,6 +71,7 @@ f_dmr = {
     }
 f_ref = "path/to/reference/genome/hg19.fa"
 out_dir = "path/to/output/folder"
+suffix_bam = "_1_deduplicated.bam"
 
 fdg.finetune_data_generate(
     sc_dataset = bam_folder_path+f_bam_file_list,
@@ -87,6 +88,18 @@ fdg.finetune_data_generate(
 ```
 The `keep_rate` parameter requires a dictionary where keys represent cell types and values ​​are floating-point numbers indicating the probability of retaining reads for that cell type. This parameter helps balance the number of extracted reads when there are significant differences in sample number and/or sample size across cell types.
 
+The `suffix_bam` Specifies the common suffix of the input BAM files. All input BAM files must use the same suffix. For example, if the input files are named:
+```
+SRR001_deduplicated.bam
+SRR002_deduplicated.bam
+SRR003_deduplicated.bam
+```
+the suffix_bam parameter should be set to:
+```
+_deduplicated.bam
+```
+The suffix is removed from each BAM filename to identify the corresponding sample name.
+
 The variable `f_bam_file_list` point to the file that list the BAM files using in the fine-tuning, while `bam_folder_path` and `dmr_folder_path` are the path to BAM and DMR folders. `f_dmr` is a Dictionary, with keys the cancer type of the DMR file, and values the path to the files. `f_ref` specifies the path to reference genome file and `out_dir` the path to a folder to store the output file(s).
 
 When `split_ratio` and `train_valid_test_ratio` both are not given, or `split_ratio = 1`, or `train_valid_test_ratio = [1,0,0]`, the output file will be a single file `data.csv`, otherwise the output files will be three files named with `train_seq.csv`, `test_seq.csv` and `val_seq.csv`. The file(s) content(s) the information extracted from BAM files and from the regions specified by DMR reports.
@@ -100,12 +113,12 @@ For more detail of arguments, please run `python finetuning.py --help`.
 
 ## Output
 During the fine-tuning phase, the model will be trained and evaluated. Several files will be saved to the output directory you specified. They are:
-- acc.jpg: A plot contents train and evaluate loss as well as evaluation accuracy during the training. The x-axis is training steps.
-- config.json: The config file of the model.
-- confusion_matrix_step_*step*.jpg: The classification confusion matrix in **read level** over evaluation steps.
-- sample_confusion_matrix_step_*step*.jpg: The classification confusion matrix in **sample level** over evaluation steps.
-- eval.csv & train.csv: A CSV table contents evalutaion & train loss and accuracy over evaluation steps.
-- predictions_step_*step*.csv: The raw prediction results over evaluation steps.
-- report_step_*step*.csv: The classification reports over evaluation steps.
-- roc_step_*step*.csv: The ROC curve over evaluation steps.
-- dmr_encoder.pickle, model.safetensors and read_classification_model.pickle: Saved model information.
+- **acc.jpg**: A plot contents train and evaluate loss as well as evaluation accuracy during the training. The x-axis is training steps.
+- **config.json**: The config file of the model.
+- **confusion_matrix_step_*step*.jpg**: The classification confusion matrix in **read level** over evaluation steps.
+- **sample_confusion_matrix_step_*step*.jpg**: The classification confusion matrix in **sample level** over evaluation steps.
+- **eval.csv & train.csv**: A CSV table contents evalutaion & train loss and accuracy over evaluation steps.
+- **predictions_step_*step*.csv**: The raw prediction results over evaluation steps.
+- **report_step_*step*.csv**: The classification reports over evaluation steps.
+- **roc_step_*step*.csv**: The ROC curve over evaluation steps.
+- **dmr_encoder.pickle, model.safetensors** and **read_classification_model.pickle**: Saved model information.

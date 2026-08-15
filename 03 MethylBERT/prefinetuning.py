@@ -1,17 +1,18 @@
 import pandas as pd
 from methylbert.data import finetune_data_generate_random_keep as fdg
 
-bam_folder_path = "/home/wuyuwei/nobackup/other/mydata/cancer/bam/"
+bam_folder_path = "/path/to/bam/files/"
 f_bam_file_list = "labels.txt"
-dmr_folder_path = "/home/wuyuwei/nobackup/other/mydata/dmrs/"
+dmr_folder_path = "/path/to/dmrs/files/"
 f_dmr = {
-    "DLBCL": dmr_folder_path+"intersect_dmrs.csv",
-    "PC": dmr_folder_path+"intersect_dmrs.csv",
-    "GC": dmr_folder_path+"intersect_dmrs.csv",
-    "normal": dmr_folder_path+"intersect_dmrs.csv"
+    "DLBCL": dmr_folder_path+"DLBCL_dmrs.csv",
+    "PC": dmr_folder_path+"PC_dmrs.csv",
+    "GC": dmr_folder_path+"GC_dmrs.csv",
+    "normal": dmr_folder_path+"normal_dmrs.csv"
     }
-f_ref = "/home/wuyuwei/nobackup/other/hg19/hg19.fa"
-out_dir = "/home/wuyuwei/nobackup/other/methylbert/tmp/"
+f_ref = "/path/to/reference/genome/file/hg19.fa"
+out_dir = "/path/to/output/dir/"
+suffix_bam = "_1_deduplicated.bam"
 
 fdg.finetune_data_generate(
     sc_dataset = bam_folder_path+f_bam_file_list,
@@ -32,10 +33,10 @@ n_folds = 3
 for i in range(1,n_folds+1):
     for t in ["test","train"]:
         is_first_write = True
-        labels = f"tmp/fold{i}_{t}.csv"
+        labels = out_dir+f"fold{i}_{t}.csv"
         labels_df = pd.read_csv(labels,sep="\t")
         for label in labels_df.itertuples(index=False):
-            print(f"Now working on: {label.sample}_1_deduplicated.bam")
-            current_reads = all_data_df[all_data_df["filename"]==label.sample+"_1_deduplicated.bam"]
+            print(f"Now working on: {label.sample}{suffix_bam}")
+            current_reads = all_data_df[all_data_df["filename"]==(label.sample+suffix_bam)]
             current_reads.to_csv(f"data{i}_{t}.csv",sep="\t",header=is_first_write,index=False,mode="a")
             is_first_write = False
