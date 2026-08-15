@@ -2,52 +2,62 @@ name: dataprocessing
 channels:
   - conda-forge
   - bioconda
+  - defaults
 dependencies:
   - _openmp_mutex=4.5=20_gnu
-  - bismark=3.0.0=hfa8f182_0
-  - bowtie2=2.5.5=ha27dd3b_0
+  - bedtools=2.31.1=hf5e1c6e_2
+  - bismark=0.25.1=hdfd78af_0
+  - bowtie2=2.4.5=py310h8d7afc0_4
   - bzip2=1.0.8=hda65f42_9
   - c-ares=1.34.6=hb03c661_0
-  - ca-certificates=2026.6.17=hbd8a1cb_0
-  - conda-pack=0.9.2=pyhcf101f3_0
+  - ca-certificates=2026.7.22=hbd8a1cb_0
   - coreutils=9.5=hd590300_0
   - hisat2=2.2.2=h503566f_0
-  - htslib=1.23.1=h633afcb_0
-  - k8=1.2=he8db53b_6
-  - kernel-headers_linux-64=5.14.0=he073ed8_3
+  - htslib=1.21=h5efdd21_0
+  - icu=73.2=h59595ed_0
+  - k8=0.2.5=hdcf5f25_4
   - keyutils=1.6.3=hb9d3cd8_0
-  - krb5=1.22.2=ha1258a1_0
-  - ld_impl_linux-64=2.45.1=default_hbd61a6d_102
-  - libcurl=8.20.0=hcf29cc6_0
+  - krb5=1.21.3=h659f571_0
+  - ld_impl_linux-64=2.45.1=bootstrap_ha15bf96_2
+  - libcurl=8.8.0=hca28451_1
   - libdeflate=1.25=h17f619e_0
   - libedit=3.1.20250104=pl5321h7949ede_0
   - libev=4.33=hd590300_2
-  - libexpat=2.8.1=hecca717_1
   - libffi=3.5.2=h3435931_0
   - libgcc=15.2.0=he0feb66_19
   - libgcc-ng=15.2.0=h69a702a_19
   - libgomp=15.2.0=he0feb66_19
+  - libhwloc=2.11.2=default_he43201b_1000
+  - libiconv=1.18=h3b78370_2
   - liblzma=5.8.3=hb03c661_0
-  - libmpdec=4.0.0=hb03c661_1
-  - libnghttp2=1.68.1=h877daf1_0
-  - libsqlite=3.53.2=h0c1763c_0
-  - libssh2=1.11.1=hcf80075_0
+  - liblzma-devel=5.8.3=hb03c661_0
+  - libnghttp2=1.58.0=h47da74e_1
+  - libnsl=2.0.1=hb9d3cd8_1
+  - libsqlite=3.46.0=hde9e2c9_0
+  - libssh2=1.11.0=h0841786_0
   - libstdcxx=15.2.0=h934c35e_19
-  - libuuid=2.42.2=h5347b49_0
+  - libstdcxx-ng=15.2.0=hdf11a46_19
+  - libuuid=2.42.1=h5347b49_0
   - libxcrypt=4.4.36=hd590300_1
-  - libzlib=1.3.2=h25fd6f3_2
-  - minimap2=2.31=h118bc1c_0
+  - libxml2=2.12.7=hc051c1a_1
+  - libzlib=1.2.13=h4ab18f5_6
+  - minimap2=2.28=he4a0461_3
   - ncurses=6.6=hdb14827_0
   - openssl=3.6.3=h35e630c_0
+  - packaging=26.2=pyhc364b38_0
   - perl=5.32.1=7_hd590300_perl5
-  - pip=26.1.2=pyh145f28c_0
-  - python=3.14.6=habeac84_100_cp314
-  - python_abi=3.14=8_cp314
+  - pip=26.1.2=pyh8b19718_0
+  - python=3.10.14=hd12c33a_0_cpython
+  - python_abi=3.10=8_cp310
   - readline=8.3=h853b02a_0
-  - samtools=1.23.1=ha83d96e_0
-  - setuptools=83.0.0=pyh332efcf_0
-  - sysroot_linux-64=2.34=h087de78_3
-  - tk=8.6.13=noxft_h366c992_103
+  - samtools=1.21=h50ea8bc_0
+  - setuptools=82.0.1=pyh332efcf_0
+  - tbb=2022.1.0=h4ce085d_0
+  - tk=8.6.13=noxft_h4845f30_101
   - tzdata=2025c=hc9c84f9_1
-  - zstd=1.5.7=hb78ec9c_6
-prefix: /software/NHML25182/wuyuwei/conda_envs/dataprocessing
+  - wheel=0.47.0=pyhd8ed1ab_0
+  - xz=5.8.3=ha02ee65_0
+  - xz-gpl-tools=5.8.3=ha02ee65_0
+  - xz-tools=5.8.3=hb03c661_0
+  - zlib=1.2.13=h4ab18f5_6
+  - zstd=1.5.6=ha6fb4c9_0

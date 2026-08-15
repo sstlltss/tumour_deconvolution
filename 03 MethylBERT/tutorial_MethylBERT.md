@@ -66,7 +66,7 @@ f_bam_file_list = "train_labels_bam.txt"
 dmr_folder_path = "path/to/dmr/files"
 f_dmr = {
     "DLBCL": dmr_folder_path+"DLBCL.csv",
-    "CC": dmr_folder_path+"CC.csv",
+    "PC": dmr_folder_path+"PC.csv",
     "GC": dmr_folder_path+"GC.csv"
     }
 f_ref = "path/to/reference/genome/hg19.fa"
@@ -81,11 +81,31 @@ fdg.finetune_data_generate(
     n_mers=3, # 3-mer DNA sequences 
     n_cores=20,
     use_file_name = True,
-    use_existed_files = False
+    use_existed_files = False,
+    keep_rate = {"DLBCL": 0.1, "GC": 0.2, "PC": 0.5}
 )
 ```
-The variable `f_bam_file_list` point to the file that list the BAM files using in the fine-tuning, while `bam_folder_path` and `dmr_folder_path` are the path to BAM and DMR folders. `f_dmr` is a Dictionary, with keys the cancer type of the DMR file, and values the path to the files. `f_ref` specifies the path to reference genome file and `out_dir` the path to a folder to store the output `data.csv`.
+The `keep_rate` parameter requires a dictionary where keys represent cell types and values ​​are floating-point numbers indicating the probability of retaining reads for that cell type. This parameter helps balance the number of extracted reads when there are significant differences in sample number and/or sample size across cell types.
 
-The output file `data.csv` contents the information extracted from BAM files and from the regions specified by DMR reports.
+The variable `f_bam_file_list` point to the file that list the BAM files using in the fine-tuning, while `bam_folder_path` and `dmr_folder_path` are the path to BAM and DMR folders. `f_dmr` is a Dictionary, with keys the cancer type of the DMR file, and values the path to the files. `f_ref` specifies the path to reference genome file and `out_dir` the path to a folder to store the output file(s).
 
-##
+When `split_ratio` and `train_valid_test_ratio` both are not given, or `split_ratio = 1`, or `train_valid_test_ratio = [1,0,0]`, the output file will be a single file `data.csv`, otherwise the output files will be three files named with `train_seq.csv`, `test_seq.csv` and `val_seq.csv`. The file(s) content(s) the information extracted from BAM files and from the regions specified by DMR reports.
+
+## Fine-tuning and evaluation
+Once the fine-tuning data are prepared, you might run `finetuning.py` to start model fine-tuning phase. You might run the script with arguments, for example:
+```
+python finetuning.py --eval_freq 300
+```
+For more detail of arguments, please run `python finetuning.py --help`.
+
+## Output
+During the fine-tuning phase, the model will be trained and evaluated. Several files will be saved to the output directory you specified. They are:
+- acc.jpg: A plot contents train and evaluate loss as well as evaluation accuracy during the training. The x-axis is training steps.
+- config.json: The config file of the model.
+- confusion_matrix_step_*step*.jpg: The classification confusion matrix in **read level** over evaluation steps.
+- sample_confusion_matrix_step_*step*.jpg: The classification confusion matrix in **sample level** over evaluation steps.
+- eval.csv & train.csv: A CSV table contents evalutaion & train loss and accuracy over evaluation steps.
+- predictions_step_*step*.csv: The raw prediction results over evaluation steps.
+- report_step_*step*.csv: The classification reports over evaluation steps.
+- roc_step_*step*.csv: The ROC curve over evaluation steps.
+- dmr_encoder.pickle, model.safetensors and read_classification_model.pickle: Saved model information.

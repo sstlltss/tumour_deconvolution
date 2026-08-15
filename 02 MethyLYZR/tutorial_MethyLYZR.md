@@ -109,8 +109,8 @@ Here is an example of `prediction.csv`:
 
 | Class                                       | Prior                            | sample  | class  |
 |---------------------------------------------|----------------------------------|---------|--------|
-| {0: 'normal', 1: 'DLBCL', 2: 'GC', 3: 'PC'} | {0: 1.0, 1: 0.0, 2: 0.0, 3: 0.0} | sample1 | DLBCL  |
-| {0: 'normal', 1: 'DLBCL', 2: 'GC', 3: 'PC'} | {0: 1.0, 1: 0.0, 2: 0.0, 3: 0.0} | sample2 | normal |
-| {0: 'PC', 1: 'DLBCL', 2: 'GC', 3: 'normal'} | {0: 1.0, 1: 0.0, 2: 0.0, 3: 0.0} | sample3 | PC     |
+| {0: 'normal', 1: 'DLBCL', 2: 'GC', 3: 'PC'} | {0: 0.870, 1: 0.100, 2: 0.002, 3: 0.001} | sample1 | DLBCL  |
+| {0: 'normal', 1: 'DLBCL', 2: 'GC', 3: 'PC'} | {0: 0.680, 1: 0.300, 2: 0.007, 3: 0.003} | sample2 | normal |
+| {0: 'PC', 1: 'DLBCL', 2: 'GC', 3: 'normal'} | {0: 1.000, 1: 0.000, 2: 0.000, 3: 0.000} | sample3 | PC     |
 
 The `Class` column lists the predicted cell types, and the `Prior` column shows the corresponding posterior probabilities. The predictions are sorted in descending order of probability. The `sample` and `class` columns indicate the sample name and its ground-truth cell type, respectively.
