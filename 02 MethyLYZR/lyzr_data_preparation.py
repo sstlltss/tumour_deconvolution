@@ -3,13 +3,13 @@ import os
 
 SITE_THERSHOLD_RATE = 0.5
 SAMPLE_THERSHOLD = 20000
-INPUT_PATH = "/home/wuyuwei/nobackup/other/mydata/cancer/cov/"
-OUTPUT_PATH = "/home/wuyuwei/nobackup/MethyLYZR/training/prepared_data/"
+INPUT_PATH = "/your/input/path"
+OUTPUT_PATH = "/your/output/path"
 LABEL_FILE = "train_labels.txt"
 TEST_MODE = False
 
 ann = pd.read_csv(
-    "/home/wuyuwei/nobackup/other/mydata/450k_annotation_hg19.csv",
+    "/your/path/to/450k_annotation_hg19.csv",
     sep=",",
     header=0,
     usecols=["chr","pos","Name"]
