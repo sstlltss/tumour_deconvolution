@@ -14,7 +14,7 @@ warmup_step=200
 steps=3000
 seed = 88
 
-output_path = "/home/wuyuwei/nobackup/other/methylbert/test11/"
+output_path = "/your/path/to/output/folder/"
 """with open(output_path+"log.json", "r") as f:
     log = json.load(f)"""
 
